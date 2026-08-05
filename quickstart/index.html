@@ -8,17 +8,18 @@
 <meta name="keywords" content="Gemini 3.6 Flash API,Gemini 3.6 Flashの料金,Gemini API,AIモデルAPI,LLM API,API料金,開発者ツール,Googleモデル">
 <link rel="canonical" href="https://a37836323.github.io/gemini-3-6-flash-api-ja/quickstart/">
 <link rel="alternate" hreflang="ja-JP" href="https://a37836323.github.io/gemini-3-6-flash-api-ja/">
-<link rel="alternate" hreflang="en-US" href="https://a37836323.github.io/gemini-3-6-flash-api/">
-<link rel="alternate" hreflang="ko-KR" href="https://a37836323.github.io/gemini-3-6-flash-api-ko/">
+<link rel="alternate" hreflang="ar-SA" href="https://gemini-3-6-flash-api-ar.vercel.app/">
 <link rel="alternate" hreflang="de-DE" href="https://gemini-3-6-flash-api-de.pages.dev/">
-<link rel="alternate" hreflang="fr-FR" href="https://gemini-3-6-flash-api-fr.pages.dev/">
 <link rel="alternate" hreflang="es-ES" href="https://gemini-3-6-flash-api-es.pages.dev/">
-<link rel="alternate" hreflang="pt-BR" href="https://gemini-3-6-flash-api-pt.pages.dev/">
+<link rel="alternate" hreflang="fr-FR" href="https://gemini-3-6-flash-api-fr.pages.dev/">
 <link rel="alternate" hreflang="id-ID" href="https://gemini-3-6-flash-api-id.pages.dev/">
+<link rel="alternate" hreflang="ko-KR" href="https://a37836323.github.io/gemini-3-6-flash-api-ko/">
+<link rel="alternate" hreflang="pt-BR" href="https://gemini-3-6-flash-api-pt.pages.dev/">
 <link rel="alternate" hreflang="ru-RU" href="https://gemini-3-6-flash-api-ru.vercel.app/">
 <link rel="alternate" hreflang="tr-TR" href="https://gemini-3-6-flash-api-tr.vercel.app/">
 <link rel="alternate" hreflang="vi-VN" href="https://gemini-3-6-flash-api-vi.vercel.app/">
-<link rel="alternate" hreflang="ar-SA" href="https://gemini-3-6-flash-api-ar.vercel.app/">
+<link rel="alternate" hreflang="zh-CN" href="https://a37836323.github.io/gemini-3-6-flash-api-zh/">
+<link rel="alternate" hreflang="en-US" href="https://a37836323.github.io/gemini-3-6-flash-api/">
 <link rel="alternate" hreflang="x-default" href="https://a37836323.github.io/gemini-3-6-flash-api-ja/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ja_JP">
@@ -224,6 +225,14 @@ print(&quot;Search the file for: gemini-3.6-flash&quot;)</code></pre>
 <li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/pricing/">Gemini 3.6 Flash APIはいくらかかりますか？</a><span>基本料金、課金基準、グループ倍率</span></li>
 <li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/compare/">Gemini 3.6 Flash: 直接APIとゲートウェイのどちらを使うべきか？</a><span>制限事項を含む項目別比較</span></li>
 <li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/faq/">Gemini 3.6 Flash APIについてよくある質問</a><span>統合時に実際によく聞かれる質問</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/gemini-flash-buying/">Gemini 3.6 Flash APIの購入先</a><span>Gemini 3.6 Flashを購入</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/gemini-flash-payment-options/">Gemini 3.6 Flash APIの支払い方法：クレジットカードなしで支払えますか？</a><span>支払い方法と請求情報の確認</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/api-relay-explained/">Gemini 3.6 Flash に対する API リレーはどのように機能するのか？</a><span>APIリレー入門</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/claude-code-relay-config/">Claude Code向けにGemini 3.6 Flashをセットアップする</a><span>Claude Codeのrelayアクセスを設定する</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/gemini-flash-cost-comparison/">Gemini 3.6 Flash API コスト: 実用的な価格チェック</a><span>Gemini Flash API のコストを比較</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/gemini-api-ban-risk/">Gemini 3.6 Flash APIの利用でアカウントが停止される可能性はある？</a><span>APIを使う前にアカウント停止リスクを確認</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/gemini-flash-free-trial/">2026 年に Gemini 3.6 Flash API を無料で試せますか？</a><span>無料枠の状況</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/organization-disabled-error-fix/">Cline に「api error 400 this organization has been disabled」と表示された場合に、まず確認すること</a><span>無効化された組織のエラー</span></li>
 </ul>
 </div>
 <div>
@@ -238,7 +247,6 @@ print(&quot;Search the file for: gemini-3.6-flash&quot;)</code></pre>
 (function(){
   try{
     var EP='https://tk.openlux.ai/collect',S='gemini-3-6-flash-api-ja',L='ja-JP',V=1;
-    // 会话内唯一，仅存在于内存：刷新即变，不落 cookie 也不落 storage
     var sid=Math.random().toString(36).slice(2)+Date.now().toString(36);
     function send(type,extra){
       try{
@@ -253,12 +261,10 @@ print(&quot;Search the file for: gemini-3.6-flash&quot;)</code></pre>
         if(navigator.sendBeacon){
           navigator.sendBeacon(EP,new Blob([body],{type:'text/plain;charset=UTF-8'}));
         }else{
-          // 老浏览器兜底。keepalive 让请求在页面卸载后仍能发完
           fetch(EP,{method:'POST',body:body,keepalive:true,mode:'no-cors'});
         }
       }catch(e){}
     }
-    // 预渲染的页面不算一次真实访问，等真正可见了再报
     if(document.visibilityState==='prerender'){
       document.addEventListener('visibilitychange',function h(){
         if(document.visibilityState!=='prerender'){
@@ -268,7 +274,6 @@ print(&quot;Search the file for: gemini-3.6-flash&quot;)</code></pre>
     }else{
       send('view');
     }
-    // 出站点击：只记去向和位置，不记任何个人信息
     document.addEventListener('click',function(e){
       var a=e.target&&e.target.closest?e.target.closest('a[data-cta]'):null;
       if(!a)return;
