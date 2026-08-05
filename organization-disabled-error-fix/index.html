@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>「this organization has been disabled」への対処法：Gemini 3.6 Flash のトラブルシューティング 2026</title>
+<meta name="description" content="「this organization has been disabled」だけでは、修正方法を特定できません。証拠を保持し、アカウント側の障害とリクエスト側の障害を切り分け、2026 年に Gemini 3.6 Flash を代替ルートとして利用できるか評価する方法を解説します。">
+<meta name="keywords" content="Gemini 3.6 Flash API,Gemini 3.6 Flashの料金,Gemini API,AIモデルAPI,LLM API,API料金,開発者ツール,Googleモデル">
+<link rel="canonical" href="https://a37836323.github.io/gemini-3-6-flash-api-ja/organization-disabled-error-fix/">
+<link rel="alternate" hreflang="ja-JP" href="https://a37836323.github.io/gemini-3-6-flash-api-ja/">
+<link rel="alternate" hreflang="ar-SA" href="https://gemini-3-6-flash-api-ar.vercel.app/">
+<link rel="alternate" hreflang="de-DE" href="https://gemini-3-6-flash-api-de.pages.dev/">
+<link rel="alternate" hreflang="es-ES" href="https://gemini-3-6-flash-api-es.pages.dev/">
+<link rel="alternate" hreflang="fr-FR" href="https://gemini-3-6-flash-api-fr.pages.dev/">
+<link rel="alternate" hreflang="id-ID" href="https://gemini-3-6-flash-api-id.pages.dev/">
+<link rel="alternate" hreflang="ko-KR" href="https://a37836323.github.io/gemini-3-6-flash-api-ko/">
+<link rel="alternate" hreflang="pt-BR" href="https://gemini-3-6-flash-api-pt.pages.dev/">
+<link rel="alternate" hreflang="ru-RU" href="https://gemini-3-6-flash-api-ru.vercel.app/">
+<link rel="alternate" hreflang="tr-TR" href="https://gemini-3-6-flash-api-tr.vercel.app/">
+<link rel="alternate" hreflang="vi-VN" href="https://gemini-3-6-flash-api-vi.vercel.app/">
+<link rel="alternate" hreflang="zh-CN" href="https://a37836323.github.io/gemini-3-6-flash-api-zh/">
+<link rel="alternate" hreflang="en-US" href="https://a37836323.github.io/gemini-3-6-flash-api/">
+<link rel="alternate" hreflang="x-default" href="https://a37836323.github.io/gemini-3-6-flash-api-ja/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="「this organization has been disabled」への対処法：Gemini 3.6 Flash のトラブルシューティング 2026">
+<meta property="og:description" content="「this organization has been disabled」だけでは、修正方法を特定できません。証拠を保持し、アカウント側の障害とリクエスト側の障害を切り分け、2026 年に Gemini 3.6 Flash を代替ルートとして利用できるか評価する方法を解説します。">
+<meta property="og:url" content="https://api.openlux.ai/">
+<meta property="og:site_name" content="OpenLux">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="「this organization has been disabled」への対処法：Gemini 3.6 Flash のトラブルシューティング 2026">
+<meta name="twitter:description" content="「this organization has been disabled」だけでは、修正方法を特定できません。証拠を保持し、アカウント側の障害とリクエスト側の障害を切り分け、2026 年に Gemini 3.6 Flash を代替ルートとして利用できるか評価する方法を解説します。">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://api.openlux.ai/#organization",
+      "name": "OpenLux",
+      "url": "https://api.openlux.ai",
+      "description": "2026年のGemini 3.6 Flash API料金データ：基本入力料金は$1.50、基本出力料金は1Mトークンあたり$7.50で、グループ倍率によって調整されます。",
+      "sameAs": [
+        "https://openlux.ai",
+        "https://doc.openlux.ai"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://a37836323.github.io/gemini-3-6-flash-api-ja/#website",
+      "url": "https://a37836323.github.io/gemini-3-6-flash-api-ja",
+      "name": "Gemini 3.6 Flash APIの料金とセットアップガイド 2026",
+      "inLanguage": "ja-JP",
+      "publisher": {
+        "@id": "https://api.openlux.ai/#organization"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://a37836323.github.io/gemini-3-6-flash-api-ja/organization-disabled-error-fix/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "OpenLux",
+          "item": "https://api.openlux.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Gemini 3.6 Flash API",
+          "item": "https://a37836323.github.io/gemini-3-6-flash-api-ja/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Cline に「api error 400 this organization has been disabled」と表示された場合に、まず確認すること",
+          "item": "https://a37836323.github.io/gemini-3-6-flash-api-ja/organization-disabled-error-fix/"
+        }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://a37836323.github.io/gemini-3-6-flash-api-ja/#application",
+      "name": "OpenLux API",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "url": "https://api.openlux.ai",
+      "description": "2026年のGemini 3.6 Flash API料金データ：基本入力料金は$1.50、基本出力料金は1Mトークンあたり$7.50で、グループ倍率によって調整されます。",
+      "offers": {
+        "@type": "Offer",
+        "price": "実測待ち",
+        "priceCurrency": "CNY",
+        "url": "https://api.openlux.ai",
+        "description": "利用料金は、ユーザーのグループ倍率を適用した後の掲載基本トークン料金に基づいて請求されます。"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://a37836323.github.io/gemini-3-6-flash-api-ja/organization-disabled-error-fix/#article",
+      "headline": "Cline に「api error 400 this organization has been disabled」と表示された場合に、まず確認すること",
+      "datePublished": "2026-08-04",
+      "dateModified": "2026-08-05",
+      "inLanguage": "ja-JP",
+      "author": {
+        "@id": "https://api.openlux.ai/#organization"
+      },
+      "publisher": {
+        "@id": "https://api.openlux.ai/#organization"
+      },
+      "mainEntityOfPage": "https://a37836323.github.io/gemini-3-6-flash-api-ja/organization-disabled-error-fix/"
+    }
+  ]
+}
+</script>
+<style>*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#ffffff;color:#1a1a1a;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif;
+line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased;
+text-rendering:optimizeLegibility}
+.unit-card53{max-width:780px;margin:0 auto;padding:32px 20px 64px}
+h1{font-size:1.85rem;line-height:1.4;margin:.2em 0 .6em;letter-spacing:-.01em}
+h2{font-size:1.3rem;margin:2.2em 0 .7em;padding-bottom:.35em;
+border-bottom:2px solid #e2e8f0}
+h3{font-size:1.08rem;margin:1.6em 0 .5em}
+a{color:#2563eb;text-decoration:none}
+a:hover,a:focus-visible{text-decoration:underline}
+code{background:#f1f5f9;padding:.15em .4em;border-radius:4px;
+font-size:.9em;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre{background:#f1f5f9;border:1px solid #e2e8f0;border-radius:8px;
+padding:16px;overflow-x:auto;font-size:.86rem;line-height:1.6}
+pre code{background:none;padding:0}
+table{width:100%;border-collapse:collapse;margin:1.2em 0;font-size:.94rem}
+th,td{border:1px solid #e2e8f0;padding:10px 12px;text-align:left}
+th{background:#f1f5f9;font-weight:600}
+ul,ol{padding-left:1.5em}
+ul{list-style-type:circle}
+li{margin:.4em 0}
+.panel-pane65{background:#f1f5f9;border-left:3px solid #2563eb;
+border-radius:0 8px 8px 0;padding:14px 18px;margin:1.4em 0}
+.item-list83{display:inline-block;background:#2563eb;color:#fff;
+padding:12px 26px;border-radius:8px;font-weight:600;margin:.6em 0}
+.item-list83:hover{opacity:.88;text-decoration:none}
+.shell-row21{color:#71717a;font-size:.86rem;margin-top:3em;
+padding-top:1.2em;border-top:1px solid #e2e8f0}
+.item-body39{border:1px solid #e2e8f0;border-radius:8px;
+padding:2px 18px;margin:.8em 0}
+.frame-note64{overflow-x:auto}
+@media(max-width:600px){
+  body{font-size:15px}
+  h1{font-size:1.5rem}
+  h2{font-size:1.18rem}
+  .unit-card53{padding:20px 16px 48px}
+  table{font-size:.85rem}
+  th,td{padding:8px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}</style>
+</head>
+<body>
+<main class="unit-card53">
+<p class="layer-pane36"><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/">ホーム</a> ／ Gemini 3.6 Flash</p>
+<h1>Cline に「api error 400 this organization has been disabled」と表示された場合に、まず確認すること</h1>
+<p>まず「api error 400 this organization has been disabled」を、モデル、キー、レート制限の問題を示す診断結果ではなく、検証が必要なアカウント状態のシグナルとして扱います。レスポンス本文だけでは、障害がアカウントレベル、リクエストレベル、クォータレベルのいずれにあるかは判断できません。最初に失敗したリクエストのコンテキストを記録し、そのうえで復旧が現実的か、代替ルートへ移行することが実務的な次のステップかを判断します。</p>
+<div>
+<h2>Cline で「api error 400 this organization has been disabled」はどのように表示されますか？</h2>
+<p>該当する生のエラーは「api error 400 this organization has been disabled」です。このページでは、一般的な 401 や 429 の案内よりも、この正確な文字列が重要です。読者が実際に検索へ貼り付けているメッセージであり、インシデント記録やサポート依頼にも原文のまま残す必要があります。</p>
+<p>Cline では、その行の前後を含む完全なエラー出力、発生時刻、選択したプロバイダーとモデル、表示されている場合はリクエスト ID を記録します。証拠をスクリーンショットだけにしないでください。コピーしたレスポンス本文と、シークレットを削除した設定値があれば、再試行間で比較しやすくなります。</p>
+<p>何かを変更する前に、クライアントの起動に使用したシェルのコンテキストを保存します。このコマンドは値ではなく変数名だけを一覧表示するため、安全にコピーできます：`env | cut -d= -f1 | sort | rg -i &#x27;api|key|base|url|model|organization&#x27;`。出力はエラーのタイムスタンプとともに保存してください。</p>
+<h2>このエラーは、アカウントが無効化された、リクエストが不正、またはクォータを使い切ったという意味ですか？</h2>
+<p>メッセージ本文は組織の状態を示していますが、原因を断定するには証拠が不十分です。400 ステータスコードも、その分類の代わりになる信頼できる情報ではありません。この 1 行だけを根拠に、不正なプロンプト、形式不正のリクエスト、期限切れのキー、クォータ超過だと判断しないでください。</p>
+<p>リクエスト固有の変数を取り除いた後も同じ組織関連のメッセージが続く場合は、アカウント側の問題である可能性があると扱います。エンドポイント、認証情報の取得元、またはプロバイダー設定を限定的に変更してレスポンスが変わる場合は、リクエスト側の問題である可能性があります。返された本文または該当するアカウント画面でクォータや使用量の状態が明示されていない限り、クォータの問題とは確定しないでください。</p>
+<p>テストは絞り込んで行います。1 回の試行でモデル、エンドポイント、キー、組織設定、クライアントバージョンをすべて変更すると、これらのケースを区別するために必要な証拠が失われます。直近の目的は、偶然 1 回のリクエストを成功させることではなく、どの境界でリクエストが拒否されているかを特定することです。</p>
+<h2>無効化された組織のエラーを優先順位に沿ってトラブルシューティングするには？</h2>
+<p>まず、失敗した設定を固定し、秘匿情報を伏せたコピーを作成します。プロジェクトディレクトリから `pwd` と `git status --short` を実行し、ワークスペースとローカル設定が変更されている可能性を確認します。次に、内容を表示せず、該当しそうな設定ファイルを一覧表示します：`rg --files -uu | rg -i &#x27;(cline|config|settings|env|json|ya?ml)$`。</p>
+<p>次に、同じクライアント状態で障害を再現できるか確認します。タイムスタンプを記録し、生の結果を保存してから、1 回だけ再試行します。再試行を繰り返しても診断上の価値が増えず、ログがノイズ化する可能性があります。レスポンスが変わった場合は、最初の結果を置き換えず、両方を保存してください。</p>
+<p>その次に、Cline がどの値を使用したか推測せず、設定の取得元を比較します。`env | cut -d= -f1 | sort` を使って環境変数名を一覧化し、クライアント固有の設定は、その UI または公式ドキュメントに記載された設定方法から確認します。API キー、認証ヘッダー、秘匿情報を伏せていない設定を、チケット、チャットログ、リポジトリに貼り付けないでください。</p>
+<p>最後に、ローカルでの変更とプロバイダー側の証拠を切り分けます。`git diff --name-only` で追跡対象のプロジェクトファイルが変更されたかは確認できますが、アカウントの状態を証明することはできません。意図的に管理した既知の設定でもエラーが変わらない場合は、保存したレスポンスとタイムスタンプを添えて、アカウント側の可能性をエスカレーションするのが適切です。</p>
+<h2>無効化された組織のエラーを調査してもらうには、何を送ればよいですか？</h2>
+<p>正確なエラー文字列、完全なレスポンス本文（秘匿情報を削除したもの）、UTC のタイムスタンプ、ローカルで確認できる場合はクライアント名とバージョン、設定されているモデル識別子、認証情報を削除したエンドポイントホストを送ります。試行間で何が変わり、何が変わらなかったかも記載してください。これにより、受け取ったチームは、安定して返される組織状態のレスポンスとローカル設定の不一致を区別できます。</p>
+<p>アカウント所有者またはプロバイダーが原因を明示的に確認していない限り、特定の操作が原因で組織が無効化されたと断定しないでください。このエラーが示すのは障害状態の発生であり、その状態に至った理由ではありません。同様に、1 回の再試行が成功しただけで、根本の状態が解消されたと判断しないでください。</p>
+<p>実用的な最小限のインシデント記録はプレーンテキストで作成できます：`timestamp=...`; `raw_error=api error 400 this organization has been disabled`; `model=...`; `endpoint_host=...`; `changes_since_previous_attempt=...`; `request_id=...`。不明なフィールドは推測で埋めず、空欄のままにしてください。</p>
+<h2>問題がアカウント側にあると確認した後は、何を利用できますか？</h2>
+<p>証拠からアカウント側のブロックが裏付けられたら、アカウント状態に影響しない設定変更を待つより、別のプロバイダールートを利用するほうが実務的な場合があります。Gemini 3.6 Flash は、サービス上では Google のチャットモデルとして掲載されています。掲載されている基本料金は、入力トークン 1 百万あたり $1.50、出力トークン 1 百万あたり $7.50、キャッシュ入力トークン 1 百万あたり $0.15 です。最終価格は、基本料金にユーザーグループの倍率を掛けて算出されます。</p>
+<p>代替ルートへの移行は、自動的に同じ運用を継続できることを意味しません。このページでは、エンドポイントの互換性、認証情報の形式、ツールの挙動、出力の同等性、利用可能性、レイテンシ、制限、支払い方法、復旧時期については確定していません。プロダクションワークフローを移行する前に、移行先のルートでこれらを検証する必要があります。</p>
+<p>移行の判断は、このインシデントに必要な範囲に限定します。機密情報を含まないテストタスクを使い、以前の失敗記録を保持し、ワークフローで実際に必要な挙動だけを比較します。Gemini 3.6 Flash を上流の組織状態に対する解決策として扱わないでください。元のルートを分類した後に評価する、別のルートです。</p>
+<h2>このエラーで再び時間を失わないためには、どうすればよいですか？</h2>
+<p>実際に有効な予防策は、アカウントに依存する障害を可観測にすることです。秘匿情報を削除したレスポンス本文、タイムスタンプ、選択したモデル識別子、エンドポイントホスト、設定の取得元の変更を記録します。これにより、認証情報を漏らしたり、記憶を頼りに事象を再構成したりせずに、次回の発生時も診断できます。</p>
+<p>明示的なフォールバック判断を用意し、見えないところで自動切り替えを行わないようにします。フォールバックには、承認担当者、検証に使う機密情報を含まないテスト、再試行ではなく停止すべき条件を明記します。1 つのクライアントが複数の設定ソースを同時に保持できる場合は、特に重要です。</p>
+<p>最後に、アカウント状態に関するインシデントと通常のリクエストエラーを、社内の記録上で分けて管理します。形式不正のリクエストはコードで修正できる場合がありますが、組織関連のレスポンスにはリクエスト経路の外での調査が必要になることがあります。両者を同じ種類の問題として扱うと、不要なキーのローテーション、再試行の繰り返し、結論の出ないデバッグにつながります。</p>
+<p>まだ解決しませんか？詳しいドキュメントとサポートは<a href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="link">Gemini 3.6 Flash API</a>で確認できます。</p>
+</div>
+<div>
+<h2>このサイトの関連記事</h2>
+<ul class="card-grid72">
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/pricing/">Gemini 3.6 Flash APIはいくらかかりますか？</a><span>基本料金、課金基準、グループ倍率</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/quickstart/">Gemini 3.6 Flash APIはどのように呼び出しますか？</a><span>セットアップ手順とコピーして使えるコード</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/compare/">Gemini 3.6 Flash: 直接APIとゲートウェイのどちらを使うべきか？</a><span>制限事項を含む項目別比較</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/faq/">Gemini 3.6 Flash APIについてよくある質問</a><span>統合時に実際によく聞かれる質問</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/gemini-flash-buying/">Gemini 3.6 Flash APIの購入先</a><span>Gemini 3.6 Flashを購入</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/gemini-flash-payment-options/">Gemini 3.6 Flash APIの支払い方法：クレジットカードなしで支払えますか？</a><span>支払い方法と請求情報の確認</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/api-relay-explained/">Gemini 3.6 Flash に対する API リレーはどのように機能するのか？</a><span>APIリレー入門</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/claude-code-relay-config/">Claude Code向けにGemini 3.6 Flashをセットアップする</a><span>Claude Codeのrelayアクセスを設定する</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/gemini-flash-cost-comparison/">Gemini 3.6 Flash API コスト: 実用的な価格チェック</a><span>Gemini Flash API のコストを比較</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/gemini-api-ban-risk/">Gemini 3.6 Flash APIの利用でアカウントが停止される可能性はある？</a><span>APIを使う前にアカウント停止リスクを確認</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/gemini-flash-free-trial/">2026 年に Gemini 3.6 Flash API を無料で試せますか？</a><span>無料枠の状況</span></li>
+</ul>
+</div>
+<div>
+<h2>始める</h2>
+<p>現在の料金情報を確認し、統合環境でGemini 3.6 Flashを検証してください。</p>
+<p><a class="item-list83" href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="button">無料のAPIキーを取得する</a></p>
+<p>公式サイト: <a href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="link">今すぐ試す</a></p>
+</div>
+<p class="shell-row21">最終更新: 2026年8月5日　|　OpenLuxが執筆・管理しています。<br>レイテンシと料金の数値は独自に測定したものです。ベンダーのサイトと異なる場合は、ベンダーの最新ページを優先します。</p>
+</main>
+<script>
+(function(){
+  try{
+    var EP='https://tk.openlux.ai/collect',S='gemini-3-6-flash-api-ja',L='ja-JP',V=1;
+    var sid=Math.random().toString(36).slice(2)+Date.now().toString(36);
+    function send(type,extra){
+      try{
+        var p={v:V,t:type,s:S,l:L,sid:sid,
+               r:document.referrer||'',
+               p:location.pathname||'/',
+               q:location.search||'',
+               sw:screen.width||0,
+               tz:(Intl.DateTimeFormat().resolvedOptions()||{}).timeZone||''};
+        for(var k in extra){p[k]=extra[k];}
+        var body=JSON.stringify(p);
+        if(navigator.sendBeacon){
+          navigator.sendBeacon(EP,new Blob([body],{type:'text/plain;charset=UTF-8'}));
+        }else{
+          fetch(EP,{method:'POST',body:body,keepalive:true,mode:'no-cors'});
+        }
+      }catch(e){}
+    }
+    if(document.visibilityState==='prerender'){
+      document.addEventListener('visibilitychange',function h(){
+        if(document.visibilityState!=='prerender'){
+          document.removeEventListener('visibilitychange',h);send('view');
+        }
+      });
+    }else{
+      send('view');
+    }
+    document.addEventListener('click',function(e){
+      var a=e.target&&e.target.closest?e.target.closest('a[data-cta]'):null;
+      if(!a)return;
+      send('click',{c:a.getAttribute('data-cta')||'',h:a.href||''});
+    },{capture:true,passive:true});
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
