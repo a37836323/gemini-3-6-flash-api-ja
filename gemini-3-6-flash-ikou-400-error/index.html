@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>gemini-3.6-flash へ移行したら 400 エラー：プレフィル、thinking_budget、temperature の直し方</title>
+<meta name="description" content="gemini-3-flash-preview や gemini-3.5-flash から gemini-3.6-flash に切り替えたら HTTP 400 が返るようになった場合の対処を、Google 公式の移行チェックリストに沿って解説します。model ターンのプレフィル、無視される temperature/top_p/top_k、candidate_count、thinking_budget から thinking_level への置き換え、関数呼び出し、修正後の確認方法までまとめました。">
+<meta name="keywords" content="Gemini 3.6 Flash API,Gemini 3.6 Flashの料金,Gemini API,AIモデルAPI,LLM API,API料金,開発者ツール,Googleモデル">
+<link rel="canonical" href="https://a37836323.github.io/gemini-3-6-flash-api-ja/gemini-3-6-flash-ikou-400-error/">
+<link rel="alternate" hreflang="ja-JP" href="https://a37836323.github.io/gemini-3-6-flash-api-ja/">
+<link rel="alternate" hreflang="ar-SA" href="https://gemini-3-6-flash-api-ar.vercel.app/">
+<link rel="alternate" hreflang="de-DE" href="https://gemini-3-6-flash-api-de.pages.dev/">
+<link rel="alternate" hreflang="es-ES" href="https://gemini-3-6-flash-api-es.pages.dev/">
+<link rel="alternate" hreflang="fr-FR" href="https://gemini-3-6-flash-api-fr.pages.dev/">
+<link rel="alternate" hreflang="id-ID" href="https://gemini-3-6-flash-api-id.pages.dev/">
+<link rel="alternate" hreflang="ko-KR" href="https://a37836323.github.io/gemini-3-6-flash-api-ko/">
+<link rel="alternate" hreflang="pt-BR" href="https://gemini-3-6-flash-api-pt.pages.dev/">
+<link rel="alternate" hreflang="ru-RU" href="https://gemini-3-6-flash-api-ru.vercel.app/">
+<link rel="alternate" hreflang="tr-TR" href="https://gemini-3-6-flash-api-tr.vercel.app/">
+<link rel="alternate" hreflang="vi-VN" href="https://gemini-3-6-flash-api-vi.vercel.app/">
+<link rel="alternate" hreflang="zh-CN" href="https://a37836323.github.io/gemini-3-6-flash-api-zh/">
+<link rel="alternate" hreflang="en-US" href="https://a37836323.github.io/gemini-3-6-flash-api/">
+<link rel="alternate" hreflang="x-default" href="https://a37836323.github.io/gemini-3-6-flash-api-ja/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="gemini-3.6-flash へ移行したら 400 エラー：プレフィル、thinking_budget、temperature の直し方">
+<meta property="og:description" content="gemini-3-flash-preview や gemini-3.5-flash から gemini-3.6-flash に切り替えたら HTTP 400 が返るようになった場合の対処を、Google 公式の移行チェックリストに沿って解説します。model ターンのプレフィル、無視される temperature/top_p/top_k、candidate_count、thinking_budget から thinking_level への置き換え、関数呼び出し、修正後の確認方法までまとめました。">
+<meta property="og:url" content="https://api.openlux.ai/">
+<meta property="og:site_name" content="OpenLux">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="gemini-3.6-flash へ移行したら 400 エラー：プレフィル、thinking_budget、temperature の直し方">
+<meta name="twitter:description" content="gemini-3-flash-preview や gemini-3.5-flash から gemini-3.6-flash に切り替えたら HTTP 400 が返るようになった場合の対処を、Google 公式の移行チェックリストに沿って解説します。model ターンのプレフィル、無視される temperature/top_p/top_k、candidate_count、thinking_budget から thinking_level への置き換え、関数呼び出し、修正後の確認方法までまとめました。">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://api.openlux.ai/#organization",
+      "name": "OpenLux",
+      "url": "https://api.openlux.ai",
+      "description": "2026年のGemini 3.6 Flash API料金データ：基本入力料金は$1.50、基本出力料金は1Mトークンあたり$7.50で、グループ倍率によって調整されます。",
+      "sameAs": [
+        "https://openlux.ai",
+        "https://doc.openlux.ai"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://a37836323.github.io/gemini-3-6-flash-api-ja/#website",
+      "url": "https://a37836323.github.io/gemini-3-6-flash-api-ja",
+      "name": "Gemini 3.6 Flash APIの料金とセットアップガイド 2026",
+      "inLanguage": "ja-JP",
+      "publisher": {
+        "@id": "https://api.openlux.ai/#organization"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://a37836323.github.io/gemini-3-6-flash-api-ja/gemini-3-6-flash-ikou-400-error/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "OpenLux",
+          "item": "https://api.openlux.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Gemini 3.6 Flash API",
+          "item": "https://a37836323.github.io/gemini-3-6-flash-api-ja/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "gemini-3.6-flash 移行後に HTTP 400 が出るとき：公式チェックリストに沿った項目別の修正",
+          "item": "https://a37836323.github.io/gemini-3-6-flash-api-ja/gemini-3-6-flash-ikou-400-error/"
+        }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://a37836323.github.io/gemini-3-6-flash-api-ja/#application",
+      "name": "OpenLux API",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "url": "https://api.openlux.ai",
+      "description": "2026年のGemini 3.6 Flash API料金データ：基本入力料金は$1.50、基本出力料金は1Mトークンあたり$7.50で、グループ倍率によって調整されます。",
+      "offers": {
+        "@type": "Offer",
+        "price": "実測待ち",
+        "priceCurrency": "CNY",
+        "url": "https://api.openlux.ai",
+        "description": "利用料金は、ユーザーのグループ倍率を適用した後の掲載基本トークン料金に基づいて請求されます。"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://a37836323.github.io/gemini-3-6-flash-api-ja/gemini-3-6-flash-ikou-400-error/#article",
+      "headline": "gemini-3.6-flash 移行後に HTTP 400 が出るとき：公式チェックリストに沿った項目別の修正",
+      "datePublished": "2026-08-04",
+      "dateModified": "2026-10-28",
+      "inLanguage": "ja-JP",
+      "author": {
+        "@id": "https://api.openlux.ai/#organization"
+      },
+      "publisher": {
+        "@id": "https://api.openlux.ai/#organization"
+      },
+      "mainEntityOfPage": "https://a37836323.github.io/gemini-3-6-flash-api-ja/gemini-3-6-flash-ikou-400-error/"
+    }
+  ]
+}
+</script>
+<style>*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#ffffff;color:#1a1a1a;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif;
+line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased;
+text-rendering:optimizeLegibility}
+.unit-card53{max-width:780px;margin:0 auto;padding:32px 20px 64px}
+h1{font-size:1.85rem;line-height:1.4;margin:.2em 0 .6em;letter-spacing:-.01em}
+h2{font-size:1.3rem;margin:2.2em 0 .7em;padding-bottom:.35em;
+border-bottom:2px solid #e2e8f0}
+h3{font-size:1.08rem;margin:1.6em 0 .5em}
+a{color:#2563eb;text-decoration:none}
+a:hover,a:focus-visible{text-decoration:underline}
+code{background:#f1f5f9;padding:.15em .4em;border-radius:4px;
+font-size:.9em;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre{background:#f1f5f9;border:1px solid #e2e8f0;border-radius:8px;
+padding:16px;overflow-x:auto;font-size:.86rem;line-height:1.6}
+pre code{background:none;padding:0}
+table{width:100%;border-collapse:collapse;margin:1.2em 0;font-size:.94rem}
+th,td{border:1px solid #e2e8f0;padding:10px 12px;text-align:left}
+th{background:#f1f5f9;font-weight:600}
+ul,ol{padding-left:1.5em}
+ul{list-style-type:circle}
+li{margin:.4em 0}
+.panel-pane65{background:#f1f5f9;border-left:3px solid #2563eb;
+border-radius:0 8px 8px 0;padding:14px 18px;margin:1.4em 0}
+.item-list83{display:inline-block;background:#2563eb;color:#fff;
+padding:12px 26px;border-radius:8px;font-weight:600;margin:.6em 0}
+.item-list83:hover{opacity:.88;text-decoration:none}
+.shell-row21{color:#71717a;font-size:.86rem;margin-top:3em;
+padding-top:1.2em;border-top:1px solid #e2e8f0}
+.item-body39{border:1px solid #e2e8f0;border-radius:8px;
+padding:2px 18px;margin:.8em 0}
+.frame-note64{overflow-x:auto}
+@media(max-width:600px){
+  body{font-size:15px}
+  h1{font-size:1.5rem}
+  h2{font-size:1.18rem}
+  .unit-card53{padding:20px 16px 48px}
+  table{font-size:.85rem}
+  th,td{padding:8px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}</style>
+</head>
+<body>
+<main class="unit-card53">
+<p data-notice="price-20261025" style="margin:0 0 16px;padding:10px 14px;border:1px solid #f0c36d;background:#fff8e6;color:#5c4400;border-radius:6px;font-size:14px;line-height:1.6">このページの価格とモデル情報は変更されている可能性があります。最新の料金は<a href="https://www.openlux.ai/pricing?utm_source=gemini-3-6-flash-api-ja&amp;utm_medium=satellite&amp;utm_campaign=price_notice" style="color:#0b57d0">OpenLux 料金ページ</a>をご確認ください。</p>
+<p class="layer-pane36"><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/">ホーム</a> ／ Gemini 3.6 Flash</p>
+<h1>gemini-3.6-flash 移行後に HTTP 400 が出るとき：公式チェックリストに沿った項目別の修正</h1>
+<p>gemini-3-flash-preview や gemini-3.5-flash を gemini-3.6-flash に置き換えたあとリクエストが HTTP 400 になる場合は、まず二点を確認してください。リクエストの末尾が事前に埋めた model ターン（プレフィル）になっていないか、そして thinking_level と thinking_budget を同時に送っていないかです。Google 公式ページ「What&#x27;s new in Gemini 3.6 Flash and 3.5 Flash-Lite」（https://ai.google.dev/gemini-api/docs/whats-new-gemini-3.6、2026-10-13 更新）は、リクエスト内で最後の空でないターンが model ターンなら API は 400 エラーを返すと明記しています。同じページには、temperature、top_p、top_k は非推奨で無視されること、今後のモデル世代ではこれらを送ると HTTP 400 になることも書かれています。移行チェックリストでは candidate_count の削除、thinking_budget から thinking_level への置き換え、関数呼び出しコードの見直しも求められています。以下では Google のドキュメントに沿って各項目を確認し、最後に修正の確かめ方を説明します。</p>
+
+<div>
+<h2>影響を受けるコード</h2>
+<p>非推奨モデルのページ（https://ai.google.dev/gemini-api/docs/deprecations、2026-10-22 更新）では、gemini-3-flash-preview と gemini-3.5-flash の後継として gemini-3.6-flash が挙げられています。gemini-3.5-flash については、エンドポイントは停止せず API リクエストを自動的に gemini-3.6-flash にルーティングすること、Google AI Studio ではこのモデルを選択できないことが追記されています。</p>
+<p>つまり Google の API を直接呼び出していて、コードがまだ gemini-3.5-flash を指定している場合でも、リクエストはすでに gemini-3.6-flash が処理しています。このページで扱うルールはそのようなコードにも当てはまります。</p>
+<p>新機能ページでは現在、gemini-3.6-flash と gemini-3.5-flash-lite を Gemini 3 シリーズの前世代リリースで本番利用は引き続き可能と位置付け、最新の Flash モデルとして Gemini 3.8 Flash を案内しています。非推奨モデルのページでは gemini-3.6-flash の停止日は発表されていません。公式ガイドは、Gemini 3.5 Flash、Gemini 3 Flash（Preview）、Gemini 3.1 Pro から 3.6 Flash への移行を対象にしています。</p>
+<p>Google によると、これらの API 変更は Gemini 3.6 Flash と Gemini 3.5 Flash-Lite、そして今後リリースされるすべての Gemini モデルに適用されます。そのため、ここで行う修正はより新しいモデルに移るときにも残しておくのが無難です。</p>
+<h2>model ターンのプレフィルが 400 になる</h2>
+<p>公式ガイドによると、model ターンのプレフィルはサポートされなくなりました。リクエスト内で最後の空でないターンのロールが model の場合、API は 400 エラーを返します。プレフィルとは、contents の末尾に model ロールのターン（たとえば JSON オブジェクトの書き出し部分）を置き、モデルにその続きから書かせる手法です。</p>
+<p>このルールが対象にするのは最後の空でないターンだけです。user と model のターンが交互に並ぶ通常の会話履歴は、最後の空でないターンが model でなければ問題ありません。</p>
+<p>Google は代わりの方法を二つ示しています。書式やトーンの要件を system_instruction に記述する方法と、Structured outputs（https://ai.google.dev/gemini-api/docs/structured-output）で応答の形式を制約する方法です。JSON を得るためにプレフィルを使っていた場合は、Structured outputs に切り替えられます。</p>
+<p>切り分けるには、実際に API へ送られているリクエスト本文をログに出し、contents の最後の空でないターンが model になっていないかを確認します。中間ライブラリを使っている場合は、自分のコードだけでなく、そのライブラリが送っている本文を確認してください。</p>
+<h2>temperature、top_p、top_k と candidate_count</h2>
+<p>移行ガイドによると、temperature、top_p、top_k は非推奨で API に無視されます。今後のモデル世代ではこれらのパラメータを送ると HTTP 400 が返るため、すべてのリクエストから削除するよう求められています。3.6 Flash では現時点でエラーにはなりませんが、効果もありません。</p>
+<p>実務上の影響として、応答を安定させるために temperature を 0 にしていたコードは、3.6 Flash ではその効果を得られません。決定性を高めたい場合、Google はユースケースに合わせた明確なルールを書いた system instruction を定義するよう勧めています。</p>
+<p>チェックリストでは candidate_count の削除も求められています。Google によると candidate_count は Gemini 3 以降でサポートされていません。</p>
+<p>参考までに、Gemini 3 の開発者ガイド（https://ai.google.dev/gemini-api/docs/gemini-3）は現在「非推奨で削除予定」と表示されていますが、temperature はデフォルト値 1.0 のままにすることを強く推奨し、1.0 未満にするとループや性能低下などの予期しない動作につながる可能性があると注意していました。3.6 Flash の移行ガイドはそれより新しい指示で、これらのパラメータは単に削除する、という扱いです。</p>
+<h2>thinking_budget を thinking_level に置き換える</h2>
+<p>チェックリストでは thinking_budget を thinking_level に置き換えるよう求めており、値として medium または high が示されています。公式の Thinking ページ（https://ai.google.dev/gemini-api/docs/thinking）の表では、gemini-3.6-flash の思考はデフォルトで有効（medium）で、minimal、low、medium、high の各レベルに対応しています。この表にはこのモデルで思考をオフにする選択肢は載っておらず、最も低いレベルは minimal です。</p>
+<p>gemini-3-flash-preview から移る場合はデフォルト値に注意してください。同じ表で gemini-3-flash-preview のデフォルトは high、gemini-3.6-flash のデフォルトは medium です。コードで思考レベルを指定せずデフォルトに任せていた場合、切り替え後は実際のレベルが high から medium に下がります。以前の挙動を保ちたいなら high を明示してください。gemini-3.5-flash から移る場合はデフォルトは変わりません。Google は、3.6 Flash は 3.5 Flash と同じ medium をデフォルトの思考レベルとして使うと説明しています。</p>
+<p>非推奨となった Gemini 3 ガイドには、thinking_budget は後方互換のため引き続きサポートされるものの、thinking_level と旧来の thinking_budget を同じリクエストで使うことはできず、そうすると 400 エラーが返ると書かれています。新しいフィールドを追加したら、両方を送るのではなく古いほうを削除してください。</p>
+<p>Google のサンプルは Interactions API を使っており、思考レベルは generation_config 内の thinking_level フィールドで指定しています。generateContent では思考関連フィールドの名前や位置が異なる場合があるため、Interactions API のサンプルのフィールド名をそのまま流用せず、API リファレンス（https://ai.google.dev/api/generate-content）の GenerationConfig を確認してください。</p>
+<h2>関数呼び出しと thought signature で確認すること</h2>
+<p>チェックリストでは関数呼び出しのコードを見直すよう求めています。一つ目は、マルチモーダルなアセットをレスポンスのペイロード（response payload）の中に置くことです。Function calling のページ（https://ai.google.dev/gemini-api/docs/function-calling）によると、Gemini 3 シリーズのモデルでは function_result ステップの result フィールドに一つ以上のコンテンツブロックを入れて送ることができ、各ブロックには text や image などの type を指定する必要があります。</p>
+<p>二つ目は、インラインの指示を二つの改行（\n\n）で区切って書式を整えることです。公式チェックリストにはこれ以上の説明はありません。</p>
+<p>三つ目は Malformed_Function_Call です。Function calling のページによると、ツール呼び出しの直前に構造化テキスト（XML、YAML、JSON など）を出力するようプロンプトで求めると、そのツール呼び出しがときどき Malformed_Function_Call で失敗することがあります。推奨される対処は、ツール呼び出し前のメモを生のテキストではなく専用の update 関数の呼び出しに入れるようモデルに指示することです。update 関数は previous_step、plan、next_step、external の四つの STRING 型パラメータを持ち、四つとも必須として宣言します。代わりの方法として、メモを Markdown の見出し（# UPDATE、## PLAN など）として書かせる、またはツール呼び出しの前にテキスト出力を求めない、という二つが挙げられています。</p>
+<p>thought signature について、Function calling のページは SDK が自動で処理すると説明しています。会話履歴を自分で管理する場合（ステートレスモード）は、Thinking ページによると、すべての thought ブロックを受け取ったとおりに再送する必要があり、履歴から削除したり変更したりしてはいけません。セッションの途中でモデルを切り替える場合も同様です。ステートフルモード（store を true にし、以降のターンで previous_interaction_id を渡す）では、signature について何もする必要はありません。API リファレンスには終了理由 MISSING_THOUGHT_SIGNATURE もあり、「リクエストに thought signature が少なくとも一つ欠けている」と説明されています。これが出た場合は、履歴から thought ブロックが失われていないか確認してください。</p>
+<h2>エラーメッセージの出ない挙動の変化</h2>
+<p>移行ガイドによると、3.6 Flash は Gemini 3.5 Flash よりも、変更を加える前に診断用のスクリプトを実行することを好む頻度が高くなっています。Google は、これにより複雑なタスクでの精度が上がる一方、定型的なフロントエンド作業では探索的なステップが増えることがあると説明しています。</p>
+<p>また、ビジュアルのレイアウトやスタイルについては、人間の評価者が以前のモデルを好んだとされています。Google は、明確なデザインガイドラインを与えることでこれを緩和できるとしています。</p>
+<p>Google はさらに、3.6 Flash は Gemini 3.5 よりも少ない推論ステップ、会話ターン、ツール呼び出しで複数ステップのワークフローを完了すると述べています。これで利用量が変わるかどうかは、ご自身の請求データで確認してください。料金は OpenLux の料金ページで確認してください。</p>
+<h2>修正できたかの確認方法</h2>
+<p>手順 1：/v1/models エンドポイントを呼び出し、一覧に gemini-3.6-flash があることを確認します。そのうえで、アプリケーションのコードが実際に新しいモデル名を使っていることを確認します。</p>
+<p>手順 2：最後の空でないターンが user で、temperature、top_p、top_k、candidate_count を含まず、思考パラメータは一つだけ（thinking_level）の最小リクエストを送ります。ステータス 200 で本文付きの応答が返り、以前の 400 エラーが出なくなったことを確認します。</p>
+<p>手順 3：思考レベルが実際に効いているかを確認します。generateContent の応答では usageMetadata.thoughtsTokenCount フィールドが思考トークン数を示します（Interactions API では total_thought_tokens で返ります）。同じプロンプトを low と high で一回ずつ送り、値を比べて設定がモデルに届いていることを確認します。</p>
+<p>手順 4：プレフィルを Structured outputs に置き換えた場合は、実際の入力例をいくつか試し、応答が期待どおりにパースできることを確認します。関数呼び出しを使う場合は、複数のツール呼び出しを含む一連のフローを最後まで実行し、Malformed_Function_Call と MISSING_THOUGHT_SIGNATURE のどちらも出ないことを確認します。</p>
+<h2>OpenLux 中継で呼び出すときの注意</h2>
+<p>OpenLux の料金エンドポイントでは現在、gemini-3.6-flash が販売中で、gemini-3.5-flash、gemini-3-flash-preview、gemini-3.8-flash なども販売中と表示されています。</p>
+<p>非推奨モデルのページにある gemini-3.5-flash から gemini-3.6-flash への自動ルーティングは、Google 自身の API の挙動です。中継経由で gemini-3.5-flash を指定したときにどのバージョンが応答するかは、このページでは確認していません。移行の際はモデル名を直接 gemini-3.6-flash に変え、上記のチェックリストを適用して挙動を明示的にしてください。</p>
+<p>Gemini ネイティブ形式でのリクエストパスは /v1beta/models/gemini-3.6-flash:generateContent で、OpenAI 互換のエンドポイントもあります。Google のサンプルが使う Interactions API（/v1beta/interactions）は中継の確認済みエンドポイントに含まれていないため、動作する前提にしないでください。OpenAI 互換形式で思考パラメータがフィールドごとにどうモデルへ渡るかも確認していません。前のセクションの方法で、最小リクエストと思考トークン数を使って確かめてください。</p>
+<p>キーは OpenLux コンソールのトークンページで作成します。料金は OpenLux の料金ページで確認してください。</p>
+<p>まだ解決しませんか？詳しいドキュメントとサポートは<a href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="docs">Gemini 3.6 Flash API</a>で確認できます。</p>
+</div>
+<div>
+<h2>このサイトの関連記事</h2>
+<ul class="card-grid72">
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/pricing/">Gemini 3.6 Flash APIはいくらかかりますか？</a><span>基本料金、課金基準、グループ倍率</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/quickstart/">Gemini 3.6 Flash APIはどのように呼び出しますか？</a><span>セットアップ手順とコピーして使えるコード</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/compare/">Gemini 3.6 Flash: 直接APIとゲートウェイのどちらを使うべきか？</a><span>制限事項を含む項目別比較</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/faq/">Gemini 3.6 Flash APIについてよくある質問</a><span>統合時に実際によく聞かれる質問</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/gemini-flash-buying/">Gemini 3.6 Flash APIの購入先</a><span>Gemini 3.6 Flashを購入</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/gemini-flash-payment-options/">Gemini 3.6 Flash APIの支払い方法：クレジットカードなしで支払えますか？</a><span>支払い方法と請求情報の確認</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/api-relay-explained/">Gemini 3.6 Flash に対する API リレーはどのように機能するのか？</a><span>APIリレー入門</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/claude-code-relay-config/">Claude Code向けにGemini 3.6 Flashをセットアップする</a><span>Claude Codeのrelayアクセスを設定する</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/gemini-flash-cost-comparison/">Gemini 3.6 Flash API コスト: 実用的な価格チェック</a><span>Gemini Flash API のコストを比較</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/gemini-api-ban-risk/">Gemini 3.6 Flash APIの利用でアカウントが停止される可能性はある？</a><span>APIを使う前にアカウント停止リスクを確認</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/gemini-flash-free-trial/">2026 年に Gemini 3.6 Flash API を無料で試せますか？</a><span>無料枠の状況</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/organization-disabled-error-fix/">Cline に「api error 400 this organization has been disabled」と表示された場合に、まず確認すること</a><span>無効化された組織のエラー</span></li>
+</ul>
+</div>
+<div>
+<h2>始める</h2>
+<p>現在の料金情報を確認し、統合環境でGemini 3.6 Flashを検証してください。</p>
+<p><a class="item-list83" href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="register-bottom">無料のAPIキーを取得する</a></p>
+<p>公式サイト: <a href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="link">今すぐ試す</a></p>
+</div>
+<p class="shell-row21">最終更新: 2026年10月28日　|　OpenLuxが執筆・管理しています。<br>レイテンシと料金の数値は独自に測定したものです。ベンダーのサイトと異なる場合は、ベンダーの最新ページを優先します。</p>
+</main>
+<script>
+(function(){
+  try{
+    var EP='https://tk.openlux.ai/collect',S='gemini-3-6-flash-api-ja',L='ja-JP',V=1;
+    var sid=Math.random().toString(36).slice(2)+Date.now().toString(36);
+    function send(type,extra){
+      try{
+        var p={v:V,t:type,s:S,l:L,sid:sid,
+               r:document.referrer||'',
+               p:location.pathname||'/',
+               q:location.search||'',
+               sw:screen.width||0,
+               tz:(Intl.DateTimeFormat().resolvedOptions()||{}).timeZone||''};
+        for(var k in extra){p[k]=extra[k];}
+        var body=JSON.stringify(p);
+        if(navigator.sendBeacon){
+          navigator.sendBeacon(EP,new Blob([body],{type:'text/plain;charset=UTF-8'}));
+        }else{
+          fetch(EP,{method:'POST',body:body,keepalive:true,mode:'no-cors'});
+        }
+      }catch(e){}
+    }
+    if(document.visibilityState==='prerender'){
+      document.addEventListener('visibilitychange',function h(){
+        if(document.visibilityState!=='prerender'){
+          document.removeEventListener('visibilitychange',h);send('view');
+        }
+      });
+    }else{
+      send('view');
+    }
+    document.addEventListener('click',function(e){
+      var a=e.target&&e.target.closest?e.target.closest('a[data-cta]'):null;
+      if(!a)return;
+      send('click',{c:a.getAttribute('data-cta')||'',h:a.href||''});
+    },{capture:true,passive:true});
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
