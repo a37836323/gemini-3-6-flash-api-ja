@@ -100,7 +100,7 @@
       "@id": "https://a37836323.github.io/gemini-3-6-flash-api-ja/api-relay-explained/#article",
       "headline": "Gemini 3.6 Flash に対する API リレーはどのように機能するのか？",
       "datePublished": "2026-08-04",
-      "dateModified": "2026-08-05",
+      "dateModified": "2026-10-28",
       "inLanguage": "ja-JP",
       "author": {
         "@id": "https://api.openlux.ai/#organization"
@@ -159,10 +159,11 @@ padding:2px 18px;margin:.8em 0}
 </head>
 <body>
 <main class="unit-card53">
-<p data-notice="price-20261025" style="margin:0 0 16px;padding:10px 14px;border:1px solid #f0c36d;background:#fff8e6;color:#5c4400;border-radius:6px;font-size:14px;line-height:1.6">このページの価格とモデル情報は2026年8月時点のもので、変更されている可能性があります。最新の料金は<a href="https://www.openlux.ai/pricing?utm_source=gemini-3-6-flash-api-ja&amp;utm_medium=satellite&amp;utm_campaign=price_notice" style="color:#0b57d0">OpenLux 料金ページ</a>をご確認ください。</p>
+<p data-notice="price-20261025" style="margin:0 0 16px;padding:10px 14px;border:1px solid #f0c36d;background:#fff8e6;color:#5c4400;border-radius:6px;font-size:14px;line-height:1.6">このページの価格とモデル情報は変更されている可能性があります。最新の料金は<a href="https://www.openlux.ai/pricing?utm_source=gemini-3-6-flash-api-ja&amp;utm_medium=satellite&amp;utm_campaign=price_notice" style="color:#0b57d0">OpenLux 料金ページ</a>をご確認ください。</p>
 <p class="layer-pane36"><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/">ホーム</a> ／ Gemini 3.6 Flash</p>
 <h1>Gemini 3.6 Flash に対する API リレーはどのように機能するのか？</h1>
 <p>APIリレーは、アプリケーションから API リクエストを受け取り、それを変換または転送して、上流のレスポンスを返すサービスです。ネットワークアクセス、支払い、アカウント設定まわりの手間を減らせますが、その一方で、リクエストを遅延させたり、変更したり、中断したりしうる別のシステムも追加されます。</p>
+
 <div>
 <h2>APIリレーを一言でいうと？</h2>
 <p>APIリレーは、アプリケーションとモデルプロバイダの間に位置します。コードがリレーのエンドポイントにリクエストを送ると、リレーは対応するリクエストを上流プロバイダまたはリソースに送り、レスポンスはリレーを経由してアプリケーションに戻ります。</p>
@@ -192,7 +193,7 @@ padding:2px 18px;margin:.8em 0}
 <p>まず、実際の経路に関する証拠から始めます。小さな非機密テストで、endpoint、model identifier、upstream resource description、authentication method、response format、streaming behavior、error behavior を確認してください。Gemini 3.6 Flash については、model identifier が正確に gemini-3.6-flash であることを確認し、返ってくる fields をアプリケーションが期待する interface と比較してください。</p>
 <p>見出しの数値を鵜呑みにせず、価格は機械的に確認してください。提供されたパネルデータでは Gemini 3.6 Flash の価格は base price とされており、final price は割り当てられた group multiplier に依存します。group、multiplier、currency、token unit、cache rule、価格を観測した時刻を記録してください。カタログデータの取得日は 2026-08-04 なので、それ以降の値は再確認が必要です。</p>
 <p>次に、提供された事実では確立されていない部分を測定します: success rate、p50 と p95 の latency、streaming の first token までの時間、error rate、retry behavior、quota behavior、model update lag、incident response です。これらはここではまだ測定されていません。最後に、data logging、retention、credential storage、upstream routing、model deprecation notices、account suspension について直接質問してください。回答が具体的で、独立して検証できるほど、リレーは信頼しやすくなります。</p>
-<p>まだ解決しませんか？詳しいドキュメントとサポートは<a href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="link">Gemini 3.6 Flash API</a>で確認できます。</p>
+<p>まだ解決しませんか？詳しいドキュメントとサポートは<a href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="docs">Gemini 3.6 Flash API</a>で確認できます。</p>
 </div>
 <div>
 <h2>このサイトの関連記事</h2>
@@ -208,15 +209,16 @@ padding:2px 18px;margin:.8em 0}
 <li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/gemini-api-ban-risk/">Gemini 3.6 Flash APIの利用でアカウントが停止される可能性はある？</a><span>APIを使う前にアカウント停止リスクを確認</span></li>
 <li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/gemini-flash-free-trial/">2026 年に Gemini 3.6 Flash API を無料で試せますか？</a><span>無料枠の状況</span></li>
 <li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/organization-disabled-error-fix/">Cline に「api error 400 this organization has been disabled」と表示された場合に、まず確認すること</a><span>無効化された組織のエラー</span></li>
+<li><a href="https://a37836323.github.io/gemini-3-6-flash-api-ja/gemini-3-6-flash-ikou-400-error/">gemini-3.6-flash 移行後に HTTP 400 が出るとき：公式チェックリストに沿った項目別の修正</a><span>移行後の 400 エラー</span></li>
 </ul>
 </div>
 <div>
 <h2>始める</h2>
 <p>現在の料金情報を確認し、統合環境でGemini 3.6 Flashを検証してください。</p>
-<p><a class="item-list83" href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="button">無料のAPIキーを取得する</a></p>
+<p><a class="item-list83" href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="register-bottom">無料のAPIキーを取得する</a></p>
 <p>公式サイト: <a href="https://api.openlux.ai/register?channel=c_lkv0gzwj" rel="nofollow noopener" data-cta="link">今すぐ試す</a></p>
 </div>
-<p class="shell-row21">最終更新: 2026年8月5日　|　OpenLuxが執筆・管理しています。<br>レイテンシと料金の数値は独自に測定したものです。ベンダーのサイトと異なる場合は、ベンダーの最新ページを優先します。</p>
+<p class="shell-row21">最終更新: 2026年10月28日　|　OpenLuxが執筆・管理しています。<br>レイテンシと料金の数値は独自に測定したものです。ベンダーのサイトと異なる場合は、ベンダーの最新ページを優先します。</p>
 </main>
 <script>
 (function(){
